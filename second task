@@ -1,1 +1,128 @@
-print(2 + 2);
+from random import randint
+class Dog:
+
+    def __init__(self, name, age, person):
+        self.name = name
+        self.age = age
+        self.host = person
+
+    def sit(self):
+        print(f"{self.name} is now sitting.")
+
+    def roll_over(self):
+        print(f"{self.name} rolled over!")
+
+    def whose_fucking_dog_is_this(self):
+        print(f"It is mine! I am {self.host}.")
+
+black_dog = Dog("Rex", 4, "James Bond")
+
+class Band:
+    def __init__(self, band_name, music_genre, number_of_gold_records=0, number_of_platinum_records=0):
+        self.number_of_gold_records = number_of_gold_records
+        self.number_of_platinum_records = number_of_platinum_records
+        self.band_name = band_name
+        self.music_genre = music_genre
+        self.number_of_rehearsals_per_month = randint(1, 31)
+
+    # def describe_band(self):
+    #     print(f"Do you like {self.music_genre}?! Well, your answer is yes, and your choice is {self.band_name}!")
+
+    def __str__(self):
+        return f"{self.band_name} plays {self.music_genre} and is {self.activity()}"
+
+    def is_active(self):
+        print(f"{self.band_name} is {self.activity()}")
+
+    def activity(self):
+        if self.number_of_rehearsals_per_month > 8:
+            activity = "active"
+        else:
+            activity = "not active"
+        return activity
+
+    def set_number_of_gold_records(self, number_of_records):
+        self.number_of_gold_records = number_of_records
+
+    def set_number_of_platinum_records(self, number_of_records):
+        self.number_of_platinum_records = number_of_records
+
+# band = Band("Band", "universal")
+# print("initial number of gold records", band.number_of_gold_records)
+# band.set_number_of_gold_records(9)
+# print("after changing number", band.number_of_gold_records)
+# band.set_number_of_platinum_records(2)
+
+class CoverBand(Band):
+    def __init__(self, band_name, music_genre, number_of_gold_records=0, number_of_platinum_records=0):
+        super().__init__(band_name, music_genre, number_of_gold_records, number_of_platinum_records)
+        self.covered_bands_and_performers = [
+            "The Beatles",
+            "Queen",
+            "Led Zeppelin",
+            "Michael Jackson",
+            "U2",
+            "Nirvana",
+            "Pink Floyd",
+            "Elvis Presley",
+            "Rolling Stones",
+            "Bob Marley"
+        ]
+
+        self.covers_by_date_of_concert = {
+            "2023-01-05": "The Beatles",
+            "2023-02-12": "Queen",
+            "2023-03-20": "Led Zeppelin",
+            "2023-04-10": "Michael Jackson",
+            "2023-05-15": "U2",
+            "2023-06-22": "Nirvana",
+            "2023-07-30": "Pink Floyd",
+            "2023-08-18": "Elvis Presley",
+            "2023-09-25": "Rolling Stones",
+            "2023-10-02": "Bob Marley"
+        }
+
+    def first_of_covered_bands(self):
+        return self.covered_bands_and_performers[0]
+        # def covered_bands_with_dates(self):
+        #     return self.covers_by_date_of_concert
+
+# coverBand = CoverBand("Band Dejavu", "all")
+# print(coverBand.first_of_covered_bands())
+# print("initial number of gold records", coverBand.number_of_gold_records)
+# coverBand.set_number_of_gold_records(9)
+# print("after changing number", coverBand.number_of_gold_records)
+# coverBand.set_number_of_platinum_records(2)
+
+class CoinTossSimulator:
+    @staticmethod
+    def toss_coin():
+        result = randint(0, 1)
+        return "Heads" if result == 1 else "Tails"
+
+    @classmethod
+    def simulate_tosses(cls, num_tosses):
+        results = [cls.toss_coin() for _ in range(num_tosses)]
+        return results
+# Simulate and print results for 10, 20, and 50 coin tosses
+num_tosses_list = [10, 20, 50]
+
+for num_tosses in num_tosses_list:
+    results = CoinTossSimulator.simulate_tosses(num_tosses)
+    print(f"Results for {num_tosses} coin tosses:")
+    print(results)
+    print(f"Heads: {results.count('Heads')}")
+    print(f"Tails: {results.count('Tails')}")
+    print()
+
+# The line `[cls.toss_coin() for _ in range(num_tosses)]` is a list comprehension in Python. It's used to generate a list of results for coin tosses by repeatedly calling the `cls.toss_coin()` method.
+#
+# Here's a breakdown of what this line does:
+#
+# 1. `range(num_tosses)` generates a sequence of numbers from `0` to `num_tosses - 1`. The variable `_` is a convention used when you don't need to use the loop variable itself. In this case, it's used as a placeholder for the loop variable, which is ignored because it's not used within the list comprehension.
+#
+# 2. `cls.toss_coin()` is called `num_tosses` times. The `cls` refers to the class itself (in this case, the `CoinTossSimulator` class), and it calls the `toss_coin()` method to simulate a single coin toss. This method returns either "Heads" or "Tails."
+#
+# 3. The list comprehension collects the results of the individual coin tosses into a list.
+#
+# So, `[cls.toss_coin() for _ in range(num_tosses)]` effectively generates a list of simulated coin toss results, with a length of `num_tosses`. Each element in the list is either "Heads" or "Tails" based on the outcome of the simulated coin tosses.
